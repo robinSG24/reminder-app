@@ -1,0 +1,17 @@
+version: "3.2"
+
+services:
+    reminder-nginx:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8081:80"
+        networks:
+            - remindernet
+        volumes:
+            - ./:/var/app/reminder
+
+networks:
+    remindernet:
+        driver: bridge
