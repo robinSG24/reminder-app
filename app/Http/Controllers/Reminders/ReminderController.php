@@ -98,6 +98,11 @@ class ReminderController extends BaseController
         return ReminderResource::collection($response);
     }
 
+    /**
+     * Marks reminder as complete
+     * @param int $id
+     * @return mixed
+     */
     public function markAsComplete(int $id)
     {
         $response = $this->reminderService->markAsComplete($id);
@@ -105,6 +110,10 @@ class ReminderController extends BaseController
         return ReminderResource::collection($response);
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function reopenReminder(int $id)
     {
         $response = $this->reminderService->markAsComplete($id);

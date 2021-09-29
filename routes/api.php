@@ -29,4 +29,6 @@ Route::group(['prefix' => 'reminder', 'namespace' => 'App\Http\Controllers\Remin
     Route::post('create','ReminderController@createReminder');          //creates a reminder
     Route::put('update/{id}','ReminderController@updateReminder');           //updates a reminder
     Route::delete('delete/{id}', 'ReminderController@deleteReminder');    //deletes a reminder
+    Route::put('complete/{id}', 'ReminderController@markAsComplete');             //marks the reminder as complete
+    Route::put('reopen/{id}', 'ReminderController@reopenReminder');             //records the time of reopen of the reminder
 });
