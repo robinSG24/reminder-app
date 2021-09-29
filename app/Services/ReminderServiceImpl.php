@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repository\ReminderRepository;
 use Carbon\Carbon;
+
 /**
  * ReminderServiceImpl houses all the service methods for reminder functionality
  *
@@ -26,7 +27,9 @@ class ReminderServiceImpl implements ReminderService
     }
 
     /**
+     * @inheritDoc
      * @param array $request
+     * @return mixed
      */
     public function createReminder(array $request)
     {
@@ -34,23 +37,64 @@ class ReminderServiceImpl implements ReminderService
         return $this->reminderRepo->createReminder($request);
     }
 
-    public function readReminder(array $request)
+    /**
+     * @inheritDoc
+     * @param int $id
+     * @return mixed|void
+     */
+    public function readReminder(int $id)
     {
-
+        return $this->reminderRepo->readReminder($id);
     }
 
-    public function deleteReminder(array $request)
+    /**
+     * @inheritDoc
+     * @param int $id
+     * @return mixed|void
+     */
+    public function deleteReminder(int $id)
     {
-        // TODO: Implement deleteReminder() method.
+        return $this->reminderRepo->deleteReminder($id);
     }
 
-    public function updateReminder(array $request)
+    /**
+     * @inheritDoc
+     * @param int $id
+     * @param array $request
+     * @return mixed|void
+     */
+    public function updateReminder(int $id, array $request)
     {
-        // TODO: Implement updateReminder() method.
+        $request['reminder_at'] = Carbon::parse($request['reminder_at'])->toDateTimeString();
+        return $this->reminderRepo->updateReminder($id, $request);
     }
 
-    public function upcomingReminderList(array $request)
+    /**
+     * @inheritDoc
+     * @param $request
+     * @return mixed
+     */
+    public function upcomingReminderList($request)
     {
-        // TODO: Implement upcomingReminderList() method.
+        return $this->reminderRepo->upcomingReminderList($request);
+    }
+
+    /**
+     * @inheritDoc
+     * @param int $id
+     * @return mixed|void
+     */
+    public function markAsComplete(int $id)
+    {
+        return $this->reminderRepo->markAsComplete($id);
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function reopenReminder(int $id)
+    {
+        return $this->reminderRepo->reopenReminder($id);
     }
 }
