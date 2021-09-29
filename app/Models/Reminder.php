@@ -17,7 +17,8 @@ class Reminder extends Model
     public $table = 'reminder';
     public $fillable = [
         'content',
-        'reminder_at'
+        'reminder_at',
+        'is_complete'
     ];
 
     /**

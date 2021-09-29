@@ -25,7 +25,7 @@
                     "Reminder"
                 ],
                 "summary": "Create Reminder",
-                "operationId": "reminder",
+                "operationId": "remindercreate",
                 "parameters": [
                     {
                         "name": "content",
@@ -66,7 +66,7 @@
                     "Reminder"
                 ],
                 "summary": "Records the time of read of the reminder",
-                "operationId": "reminder",
+                "operationId": "reminderread",
                 "parameters": [
                     {
                         "name": "id",
@@ -99,12 +99,12 @@
                     "Reminder"
                 ],
                 "summary": "Retrieves list of upcoming reminders",
-                "operationId": "reminder",
+                "operationId": "reminderupcoming",
                 "parameters": [
                     {
                         "name": "reminder_at",
                         "in": "query",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -131,8 +131,8 @@
                 "tags": [
                     "Reminder"
                 ],
-                "summary": "Create Reminder",
-                "operationId": "reminder",
+                "summary": "Updates Reminder",
+                "operationId": "reminderupdate",
                 "parameters": [
                     {
                         "name": "id",
@@ -181,7 +181,7 @@
                     "Reminder"
                 ],
                 "summary": "Deletes Reminder",
-                "operationId": "reminder",
+                "operationId": "reminderdelete",
                 "parameters": [
                     {
                         "name": "id",
@@ -214,7 +214,7 @@
                     "Reminder"
                 ],
                 "summary": "Completes Reminder",
-                "operationId": "reminder",
+                "operationId": "remindercomplete",
                 "parameters": [
                     {
                         "name": "id",
@@ -247,7 +247,7 @@
                     "Reminder"
                 ],
                 "summary": "Records time of Reopened Reminder",
-                "operationId": "reminder",
+                "operationId": "reminderreopen",
                 "parameters": [
                     {
                         "name": "id",

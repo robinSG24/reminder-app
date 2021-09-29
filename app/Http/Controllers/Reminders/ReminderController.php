@@ -80,9 +80,9 @@ class ReminderController extends BaseController
      */
     public function updateReminder(int $id, ReminderRequest $request)
     {
-        $response = $this->reminderService->updateReminder($id, $request);
+        $response = $this->reminderService->updateReminder($id, $request->validated());
 
-        return ReminderResource::make($response);
+        return ['status' => 200, 'message' => trans('messages.reminder_updated')];
     }
 
     /**
@@ -107,17 +107,17 @@ class ReminderController extends BaseController
     {
         $response = $this->reminderService->markAsComplete($id);
 
-        return ReminderResource::collection($response);
+        return ['status' => 200, 'message' => trans('messages.reminder_completed')];
     }
 
     /**
      * @param int $id
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return array
      */
     public function reopenReminder(int $id)
     {
-        $response = $this->reminderService->markAsComplete($id);
+        $response = $this->reminderService->reopenReminder($id);
 
-        return ReminderResource::collection($response);
+        return ['status' => 200, 'message' => trans('messages.reminder_reopened')];
     }
 }
