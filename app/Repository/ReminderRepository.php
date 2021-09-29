@@ -37,7 +37,7 @@ class ReminderRepository
         try {
             return $this->reminderModel->query()->create($request);
         } catch (\Exception $e) {
-            throw ValidationException::withMessages(trans('messages.something_went_wrong'));
+            throw ValidationException::withMessages([trans('messages.something_went_wrong')]);
         }
     }
 
@@ -56,7 +56,7 @@ class ReminderRepository
 
             return $reminder;
         } catch (\Exception $e) {
-            throw ValidationException::withMessages(trans('messages.something_went_wrong'));
+            throw ValidationException::withMessages([trans('messages.something_went_wrong')]);
         }
     }
 
@@ -71,7 +71,7 @@ class ReminderRepository
             $reminder = $this->reminderModel->query()->where('id', $id)->first();
             return $reminder->delete();
         } catch (\Exception $e) {
-            throw ValidationException::withMessages(trans('messages.something_went_wrong'));
+            throw ValidationException::withMessages([trans('messages.something_went_wrong')]);
         }
     }
 
@@ -84,12 +84,10 @@ class ReminderRepository
     public function updateReminder(int $id, array $request)
     {
         try {
-            $reminder = $this->reminderModel->query()->where('id', $id)->first();
-            $reminder->save($request);
-
+            $reminder = $this->reminderModel->query()->where('id', $id)->update($request);
             return $reminder;
         } catch (\Exception $e) {
-            throw ValidationException::withMessages(trans('messages.something_went_wrong'));
+            throw ValidationException::withMessages([trans('messages.something_went_wrong')]);
         }
     }
 
@@ -101,10 +99,13 @@ class ReminderRepository
     public function upcomingReminderList($request)
     {
         try {
-            return $this->reminderModel->query()->where('reminder_at', '>', Carbon::now()->toDateTimeString())->get();
-
+            $reminder = $this->reminderModel->query()->where('reminder_at', '>', Carbon::now()->toDateTimeString());
+            if ($request->reminder_at != null){
+                $reminder->whereDate('reminder_at', Carbon::parse($request->reminder_at)->toDateString());
+            }
+            return $reminder->get();
         } catch (\Exception $e) {
-            throw ValidationException::withMessages(trans('messages.something_went_wrong'));
+            throw ValidationException::withMessages([trans('messages.something_went_wrong')]);
         }
     }
 
@@ -116,12 +117,10 @@ class ReminderRepository
     public function reopenReminder($id)
     {
         try {
-            $reminder = $this->reminderModel->query()->where('id', $id)->first();
-            $reminder->reopened_at = Carbon::now()->toDateTimeString();
-            $reminder->save();
+            $reminder = $this->reminderModel->query()->where('id', $id)->update(['reopened_at' => Carbon::now()->toDateTimeString()]);
             return $reminder;
         } catch (\Exception $e) {
-            throw ValidationException::withMessages(trans('messages.something_went_wrong'));
+            throw ValidationException::withMessages([trans('messages.something_went_wrong')]);
         }
     }
 
@@ -133,12 +132,10 @@ class ReminderRepository
     public function markAsComplete($id)
     {
         try {
-            $reminder = $this->reminderModel->query()->where('id', $id)->first();
-            $reminder->is_complete = true;
-            $reminder->save();
+            $reminder = $this->reminderModel->query()->where('id', $id)->update(['is_complete' => true]);
             return $reminder;
         } catch (\Exception $e) {
-            throw ValidationException::withMessages(trans('messages.something_went_wrong'));
+            throw ValidationException::withMessages([trans('messages.something_went_wrong')]);
         }
     }
 }

@@ -29,7 +29,7 @@
  ** path="/reminder/create",
  *   tags={"Reminder"},
  *   summary="Create Reminder",
- *   operationId="reminder",
+ *   operationId="remindercreate",
  *
  *   @OA\Parameter(
  *      name="content",
@@ -74,7 +74,7 @@
  ** path="/reminder/read/{id}",
  *   tags={"Reminder"},
  *   summary="Records the time of read of the reminder",
- *   operationId="reminder",
+ *   operationId="reminderread",
  *
  *   @OA\Parameter(
  *      name="id",
@@ -110,12 +110,12 @@
  ** path="/reminder/upcoming",
  *   tags={"Reminder"},
  *   summary="Retrieves list of upcoming reminders",
- *   operationId="reminder",
+ *   operationId="reminderupcoming",
  *
  *   @OA\Parameter(
  *      name="reminder_at",
  *      in="query",
- *      required=true,
+ *      required=false,
  *      @OA\Schema(
  *           type="string"
  *      )
@@ -145,8 +145,8 @@
  * @OA\Put(
  ** path="/reminder/update/{id}",
  *   tags={"Reminder"},
- *   summary="Create Reminder",
- *   operationId="reminder",
+ *   summary="Updates Reminder",
+ *   operationId="reminderupdate",
  *
  *   @OA\Parameter(
  *      name="id",
@@ -200,7 +200,7 @@
  ** path="/reminder/delete/{id}",
  *   tags={"Reminder"},
  *   summary="Deletes Reminder",
- *   operationId="reminder",
+ *   operationId="reminderdelete",
  *
  *   @OA\Parameter(
  *      name="id",
@@ -238,7 +238,7 @@
  ** path="/reminder/complete/{id}",
  *   tags={"Reminder"},
  *   summary="Completes Reminder",
- *   operationId="reminder",
+ *   operationId="remindercomplete",
  *
  *   @OA\Parameter(
  *      name="id",
@@ -276,7 +276,7 @@
  ** path="/reminder/reopen/{id}",
  *   tags={"Reminder"},
  *   summary="Records time of Reopened Reminder",
- *   operationId="reminder",
+ *   operationId="reminderreopen",
  *
  *   @OA\Parameter(
  *      name="id",
