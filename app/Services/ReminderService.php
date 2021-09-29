@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+
 /**
  * Reminder Service houses all the services required respective of the reminders
  *
@@ -21,26 +22,38 @@ interface ReminderService
      * @param array $request
      * @return mixed
      */
-    public function readReminder(array $request);
+    public function readReminder(int $id);
 
     /**
      * @inheritDoc
      * @param array $request
      * @return mixed
      */
-    public function deleteReminder(array $request);
+    public function deleteReminder(int $id);
 
     /**
      * @inheritDoc
      * @param array $request
      * @return mixed
      */
-    public function updateReminder(array $request);
+    public function updateReminder(int $id, array $request);
 
     /**
      * @inheritDoc
-     * @param array $request
+     * @param $request
      * @return mixed
      */
-    public function upcomingReminderList(array $request);
+    public function upcomingReminderList($request);
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function markAsComplete(int $id);
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function reopenReminder(int $id);
 }

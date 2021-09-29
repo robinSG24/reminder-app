@@ -6,6 +6,7 @@ use App\Http\Controllers\Reminders\Requests\ReminderRequest;
 use App\Http\Controllers\Reminders\Resources\ReminderResource;
 use App\Services\ReminderService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Controller as BaseController;
 
 /**
@@ -43,14 +44,15 @@ class ReminderController extends BaseController
     }
 
     /**
-     * marks the reminder read at time
+     * marks the reminder read time
      *
+     * @param int $id
      * @param Request $request
-     * @return ReminderResource
+     * @return mixed
      */
-    public function readReminder(Request $request)
+    public function readReminder(int $id)
     {
-        $response = $this->reminderService->readReminder($request);
+        $response = $this->reminderService->readReminder($id);
 
         return ReminderResource::make($response);
     }
@@ -58,25 +60,27 @@ class ReminderController extends BaseController
     /**
      * Deletes the reminder w.r.t to id
      *
+     * @param int $id
      * @param Request $request
-     * @return ReminderResource
+     * @return mixed
      */
-    public function deleteReminders(Request $request)
+    public function deleteReminder(int $id)
     {
-        $response = $this->reminderService->deleteReminder($request);
+        $response = $this->reminderService->deleteReminder($id);
 
-        return ReminderResource::make($response);
+        return ['status' => 200, 'message' => trans('messages.reminder_deleted')];
     }
 
     /**
      * Updates the reminder content or date.
      *
+     * @param int $id
      * @param ReminderRequest $request
-     * @return ReminderResource
+     * @return mixed
      */
-    public function updateReminder(ReminderRequest $request)
+    public function updateReminder(int $id, ReminderRequest $request)
     {
-        $response = $this->reminderService->updateReminder($request);
+        $response = $this->reminderService->updateReminder($id, $request);
 
         return ReminderResource::make($response);
     }
@@ -90,6 +94,20 @@ class ReminderController extends BaseController
     public function upcomingReminderList(Request $request)
     {
         $response = $this->reminderService->upcomingReminderList($request);
+
+        return ReminderResource::collection($response);
+    }
+
+    public function markAsComplete(int $id)
+    {
+        $response = $this->reminderService->markAsComplete($id);
+
+        return ReminderResource::collection($response);
+    }
+
+    public function reopenReminder(int $id)
+    {
+        $response = $this->reminderService->markAsComplete($id);
 
         return ReminderResource::collection($response);
     }

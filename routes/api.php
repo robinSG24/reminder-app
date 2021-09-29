@@ -27,6 +27,6 @@ Route::group(['prefix' => 'reminder', 'namespace' => 'App\Http\Controllers\Remin
     Route::get('upcoming', 'ReminderController@upcomingReminderList');      //get list of upcoming reminders
     Route::put('read/{id}', 'ReminderController@readReminder');             //records the time of read of the reminder
     Route::post('create','ReminderController@createReminder');          //creates a reminder
-    Route::put('update','ReminderController@updateReminder');           //updates a reminder
+    Route::put('update/{id}','ReminderController@updateReminder');           //updates a reminder
     Route::delete('delete/{id}', 'ReminderController@deleteReminder');    //deletes a reminder
 });
