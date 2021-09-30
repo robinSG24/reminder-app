@@ -13,9 +13,9 @@ class ReminderResource extends JsonResource
             'id' => $this->id,
             'reminder_at' => Carbon::parse($this->reminder_at)->format('d-m-Y'),
             'content' => $this->content,
-            'read_at' => Carbon::parse($this->read_at)->format('d-m-Y'),
+            'read_at' => $this->read_at != null ? Carbon::parse($this->read_at)->format('d-m-Y') : null,
             'is_complete' => (bool)$this->is_complete,
-            'reopened_at' => Carbon::parse($this->reopened_at)->format('d-m-Y')
+            'reopened_at' => $this->reopened_at != null ? Carbon::parse($this->reopened_at)->format('d-m-Y') : null
         ];
     }
 }
