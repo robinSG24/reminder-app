@@ -61,17 +61,89 @@ class ReminderTest extends TestCase
      *
      * @return void
      */
-    public function testdeleteReminderAPI()
+    public function testDeleteReminderAPI()
     {
-        $response = $this->get('/api/reminder/upcoming');
+        $request = [
+            'content' => 'test-title',
+            'reminder_at' => '01-02-2022 09:00'
+        ];
+        $data = $this->post('/api/reminder/create', $request);
+        $response = $this->delete('/api/reminder/delete/' . $data->original->id);
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            'data' => [[
-                'content',
-                'reminder_at'
-            ]]]);
+        $response->assertJson(['status' => 200, 'message' => trans('messages.reminder_deleted')]);
     }
 
 
+    /**
+     * A upcoming Reminder feature test.
+     *
+     * @return void
+     */
+    public function testUpdateReminderAPI()
+    {
+        $request = [
+            'content' => 'test-title',
+            'reminder_at' => '01-02-2022 09:00'
+        ];
+        $data = $this->post('/api/reminder/create', $request);
+        $response = $this->put('/api/reminder/update/' . $data->original->id, $request);
+
+        $response->assertStatus(200);
+        $response->assertJson(['status' => 200, 'message' => trans('messages.reminder_updated')]);
+    }
+
+    /**
+     * A upcoming Reminder feature test.
+     *
+     * @return void
+     */
+    public function testReadReminderAPI()
+    {
+        $request = [
+            'content' => 'test-title',
+            'reminder_at' => '01-02-2022 09:00'
+        ];
+        $data = $this->post('/api/reminder/create', $request);
+        $response = $this->put('/api/reminder/read/' . $data->original->id);
+
+        $response->assertStatus(200);
+        $response->assertJson(['status' => 200, 'message' => trans('messages.reminder_read')]);
+    }
+
+    /**
+     * A upcoming Reminder feature test.
+     *
+     * @return void
+     */
+    public function testCompleteReminderAPI()
+    {
+        $request = [
+            'content' => 'test-title',
+            'reminder_at' => '01-02-2022 09:00'
+        ];
+        $data = $this->post('/api/reminder/create', $request);
+        $response = $this->put('/api/reminder/complete/' . $data->original->id);
+
+        $response->assertStatus(200);
+        $response->assertJson(['status' => 200, 'message' => trans('messages.reminder_completed')]);
+    }
+
+    /**
+     * A upcoming Reminder feature test.
+     *
+     * @return void
+     */
+    public function testReopenReminderAPI()
+    {
+        $request = [
+            'content' => 'test-title',
+            'reminder_at' => '01-02-2022 09:00'
+        ];
+        $data = $this->post('/api/reminder/create', $request);
+        $response = $this->put('/api/reminder/reopen/' . $data->original->id);
+
+        $response->assertStatus(200);
+        $response->assertJson(['status' => 200, 'message' => trans('messages.reminder_reopened')]);
+    }
 }

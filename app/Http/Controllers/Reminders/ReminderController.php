@@ -54,7 +54,7 @@ class ReminderController extends BaseController
     {
         $response = $this->reminderService->readReminder($id);
 
-        return ReminderResource::make($response);
+        return ['status' => 200, 'message' => trans('messages.reminder_read')];
     }
 
     /**
@@ -66,7 +66,7 @@ class ReminderController extends BaseController
      */
     public function deleteReminder(int $id)
     {
-        $response = $this->reminderService->deleteReminder($id);
+        $this->reminderService->deleteReminder($id);
 
         return ['status' => 200, 'message' => trans('messages.reminder_deleted')];
     }
@@ -80,7 +80,7 @@ class ReminderController extends BaseController
      */
     public function updateReminder(int $id, ReminderRequest $request)
     {
-        $response = $this->reminderService->updateReminder($id, $request->validated());
+       $this->reminderService->updateReminder($id, $request->validated());
 
         return ['status' => 200, 'message' => trans('messages.reminder_updated')];
     }
