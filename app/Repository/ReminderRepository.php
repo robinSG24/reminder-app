@@ -50,10 +50,7 @@ class ReminderRepository
     {
         try {
 
-            $reminder = $this->reminderModel->query()->where('id', $id)->first();
-            $reminder->read_at = Carbon::now()->toDateTimeString();
-            $reminder->save();
-
+            $reminder = $this->reminderModel->query()->where('id', $id)->update(['read_at' => Carbon::now()->toDateTimeString()]);
             return $reminder;
         } catch (\Exception $e) {
             throw ValidationException::withMessages([trans('messages.something_went_wrong')]);
@@ -100,7 +97,7 @@ class ReminderRepository
     {
         try {
             $reminder = $this->reminderModel->query()->where('reminder_at', '>', Carbon::now()->toDateTimeString());
-            if ($request->reminder_at != null){
+            if ($request->reminder_at != null) {
                 $reminder->whereDate('reminder_at', Carbon::parse($request->reminder_at)->toDateString());
             }
             return $reminder->get();
